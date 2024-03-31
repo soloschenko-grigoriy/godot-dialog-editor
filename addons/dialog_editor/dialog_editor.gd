@@ -39,11 +39,11 @@ func add_entry() -> void:
 		return
 
 	var entry: Entry = node.instantiate()
-	entry.setup(GameManager.create_new_cue(current_conversation))
+	entry.setup(DialogManager.create_new_cue(current_conversation))
 	
 	graph.add_child(entry)
 
 
 func select_convo(index: int) -> void:
 	var convo_id: int = choose_convo_btn.get_item_id(index)
-	current_conversation = GameManager.get_conversation_by_id(convo_id)
+	current_conversation = DialogManager.get_conversation_by_id(convo_id)
