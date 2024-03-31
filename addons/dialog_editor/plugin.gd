@@ -1,9 +1,11 @@
 @tool
 extends EditorPlugin
 
+const AUTOLOAD_NAME = "DialogEditor"
+
 ## Constants
 const PLUGIN_PATH = "res://addons/dialog_editor/"
-const MAIN_PANEL =  preload(PLUGIN_PATH + "dialogue_editor.tscn")
+const MAIN_PANEL =  preload(PLUGIN_PATH + "dialog_editor.tscn")
 const MAIN_PANEL_ICON = preload(PLUGIN_PATH + "chat.svg")
 
 ## Variables
