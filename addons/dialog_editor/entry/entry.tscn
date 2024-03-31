@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bn7p7ddl746xb"]
+
+[node name="DialogueEntry" type="GraphNode"]
+offset_right = 333.0
+offset_bottom = 161.0
+title = "Dialog Entry"

@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://7j1oib4ysst5"]
+
+[ext_resource type="Script" path="res://addons/dialog_editor/add/add_button.gd" id="1_y10ge"]
+
+[node name="DialogueEditor" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AddDialogeEntry" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Add new"
+script = ExtResource("1_y10ge")
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_offset = Vector2(0, -34)
