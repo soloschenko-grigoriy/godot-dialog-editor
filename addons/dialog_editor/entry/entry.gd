@@ -10,6 +10,3 @@ var data: EntryResource
 func _ready() -> void:
     label.text = data.text
     
-
-func setup(data: EntryResource) -> void:
-    self.data = data

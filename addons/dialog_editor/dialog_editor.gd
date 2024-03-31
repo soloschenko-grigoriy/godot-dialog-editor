@@ -6,7 +6,7 @@ extends Panel
 
 var addBtn: AddButton
 var chooseConvoBtn: ChooseConversationButton
-var _index = 0
+var _index: int = 0
 
 var node: PackedScene = load("res://addons/dialog_editor/entry/entry.tscn")
 var data: Array[EntryResource] = [
@@ -39,7 +39,7 @@ func create_choose_cono_btn() -> void:
 func add_entry() -> void:
 	var entry: Entry = node.instantiate()
 	entry.data = data[_index]
-	# entry.setup(data[_index])
+	
 	graph.add_child(entry)
 	
 	_index += 1
