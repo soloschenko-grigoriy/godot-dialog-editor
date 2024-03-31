@@ -2,49 +2,48 @@
 extends Panel
 
 @onready var graph: GraphEdit = $Graph
-@onready var menuBox: HBoxContainer = graph.get_menu_hbox()
+@onready var menu_box: HBoxContainer = graph.get_menu_hbox()
 
-var addBtn: AddButton
-var chooseConvoBtn: ChooseConversationButton
-var _index: int = 0
+var add_btn: AddButton
+var choose_convo_btn: ChooseConversationButton
+var current_conversation: IConversation = null
 
 var node: PackedScene = load("res://addons/dialog_editor/entry/entry.tscn")
-var data: Array[EntryResource] = [
-	EntryResource.new(1, "Hello"), 
-	EntryResource.new(2, "Hi")
-]
 
 
 func _ready() -> void:
 	create_add_btn()
 	create_choose_cono_btn()
+	select_convo(0)
 
 
 func create_add_btn() -> void:
-	addBtn = AddButton.new()
-	graph.get_menu_hbox().add_child(addBtn)
-	graph.get_menu_hbox().move_child(addBtn, 0)
+	add_btn = AddButton.new()
+	graph.get_menu_hbox().add_child(add_btn)
+	graph.get_menu_hbox().move_child(add_btn, 0)
 
-	addBtn.pressed.connect(add_entry)
+	add_btn.pressed.connect(add_entry)
 
 
 func create_choose_cono_btn() -> void:
-	chooseConvoBtn = ChooseConversationButton.new()
-	menuBox.add_child(chooseConvoBtn)
-	menuBox.move_child(chooseConvoBtn, 1)
+	choose_convo_btn = ChooseConversationButton.new()
+	menu_box.add_child(choose_convo_btn)
+	menu_box.move_child(choose_convo_btn, 1)
 
-	chooseConvoBtn.item_selected.connect(select_convo)
+	choose_convo_btn.item_selected.connect(select_convo)
 
 
 func add_entry() -> void:
+	if current_conversation == null:
+		print("No conversation selected")
+		return
+
 	var entry: Entry = node.instantiate()
-	entry.data = data[_index]
+	entry.setup(GameManager.create_new_cue(current_conversation))
 	
 	graph.add_child(entry)
-	
-	_index += 1
 
 
 func select_convo(index: int) -> void:
-	print("Selected conversation: ", index, " ", chooseConvoBtn.get_item_text(index))
-	pass
+	var convo_id: int = choose_convo_btn.get_item_id(index)
+	current_conversation = GameManager.get_conversation_by_id(convo_id)

@@ -1,9 +1,9 @@
 @tool
 extends OptionButton
-
 class_name ChooseConversationButton
 
+@onready var data: Array[IConversation] = GameManager.get_conversations()
+
 func _ready() -> void:
-    add_item("Conversation 1")
-    add_item("Conversation 2")
-    add_item("Conversation 3")
+    for data_item: IConversation in data:
+        add_item(data_item.title, data_item.id)
