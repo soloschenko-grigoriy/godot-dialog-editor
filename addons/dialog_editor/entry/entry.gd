@@ -12,5 +12,4 @@ func _ready() -> void:
 
 
 func setup(cue: ICue) -> void:
-    print(cue.id)
     self.data = cue
