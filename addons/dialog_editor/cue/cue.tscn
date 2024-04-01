@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bn7p7ddl746xb"]
 
-[ext_resource type="Script" path="res://addons/dialog_editor/cue/cue.gd" id="1_804h2"]
+[ext_resource type="Script" path="res://addons/dialog_editor/cue/cue.gd" id="1_5pp3s"]
 
 [node name="Entry" type="GraphNode"]
 offset_right = 333.0
@@ -16,7 +16,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
-script = ExtResource("1_804h2")
+script = ExtResource("1_5pp3s")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

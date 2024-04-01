@@ -43,6 +43,11 @@ func get_cues_by_conversation(convo: IConversation) -> Array[ICue]:
         func (cue: ICue) -> bool: return cue.convoId == convo.id)
 
 
+func get_cues_by_conversation_id(convoId: int) -> Array[ICue]:
+    return cues.filter(
+        func (cue: ICue) -> bool: return cue.convoId == convoId)
+
+
 func get_next_cue_id() -> int:
     return cues.reduce(func (accum: int, cue: ICue) -> int: return cue.id if cue.id > accum else accum, 0) + 1
 
