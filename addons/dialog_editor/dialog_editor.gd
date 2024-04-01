@@ -82,3 +82,21 @@ func connect_cues(from_node: StringName, from_port: int, to_node: StringName, to
 
 func disconnect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	graph.disconnect_node(from_node, from_port, to_node, to_port);
+
+
+func delete_cue(cue: Cue) -> void:
+	if cue == last_added:
+		last_added = null
+		
+	for connection in graph.get_connection_list():
+		if connection["from_node"] == cue.get_name() or connection["to_node"] == cue.get_name():
+			var from_node: StringName = connection["from_node"];
+			var from_port: int = connection["from_port"];
+			var to_node: StringName = connection["to_node"];
+			var to_port:int = connection["to_port"];
+
+			disconnect_cues(from_node, from_port, to_node, to_port)
+	
+	DialogManager.delete_cue(cue.data)
+	graph.remove_child(cue)
+	cue.queue_free()

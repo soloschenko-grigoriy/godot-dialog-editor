@@ -5,15 +5,15 @@ class_name Cue
 @onready var label: Label = $Label
 
 ## Must be set before the node is added to tree
-var cue: ICue
+var data: ICue
 var dialogEditor: DialogEditor
 
 func _ready() -> void:
-	if cue == null:
+	if data == null:
 		print("Cue not set")
 		return
 
-	label.text = cue.text
+	label.text = data.text
 
 	add_next_btn()
 	add_close_btn()
@@ -25,8 +25,8 @@ func _ready() -> void:
 	node_deselected.connect(hide_details)
 
 
-func setup(data: ICue, editor: DialogEditor, last_cue: Cue = null) -> void:
-	self.cue = data
+func setup(cue: ICue, editor: DialogEditor, last_cue: Cue = null) -> void:
+	self.data = cue
 	self.dialogEditor = editor
 	
 	add_offset(last_cue)
@@ -47,7 +47,6 @@ func add_next_btn() -> void:
 
 
 func add_offset(last_cue: Cue = null) -> void:
-	# var count: int = DialogManager.get_cues_by_conversation_id(cue.convoId).size()
 	var last_pos: Vector2 = Vector2(0, 150)
 	var last_size: Vector2 = Vector2(0, 0)
 
@@ -66,16 +65,15 @@ func resize(new_min_size: Vector2) -> void:
 
 
 func delete() -> void:
-	DialogManager.delete_cue(cue)
-	queue_free()
+	dialogEditor.delete_cue(self)
 
 
 func show_details() -> void:
-	dialogEditor.show_details_for(cue)
+	dialogEditor.show_details_for(data)
 
 
 func hide_details() -> void:
-	dialogEditor.hide_details_for(cue)
+	dialogEditor.hide_details_for(data)
 	
 
 func add_next() -> void:
