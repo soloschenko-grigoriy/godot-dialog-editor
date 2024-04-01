@@ -1,3 +1,4 @@
+@tool
 extends GraphNode
 class_name Entry
 
@@ -8,8 +9,8 @@ var data: ICue
 
 
 func _ready() -> void:
-    label.text = data.text
+	label.text = data.text
 
 
 func setup(cue: ICue) -> void:
-    self.data = cue
+	self.data = cue

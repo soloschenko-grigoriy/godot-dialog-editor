@@ -17,13 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DialogManager="*res://dialog_manager/dialog_manager.gd"
+DialogManager="*res://game/dialog_manager/dialog_manager.gd"
 
 [debug]
 
 gdscript/warnings/exclude_addons=false
 gdscript/warnings/untyped_declaration=1
-gdscript/warnings/inferred_declaration=1
 gdscript/warnings/unsafe_property_access=2
 gdscript/warnings/unsafe_method_access=2
 gdscript/warnings/unsafe_cast=1

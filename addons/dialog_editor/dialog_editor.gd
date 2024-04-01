@@ -47,7 +47,7 @@ func add_entry() -> void:
 func select_convo(index: int) -> void:
 	var convo_id: int = choose_convo_btn.get_item_id(index)
 	current_conversation = DialogManager.get_conversation_by_id(convo_id)
-	
+
 	clear_graph()
 
 
