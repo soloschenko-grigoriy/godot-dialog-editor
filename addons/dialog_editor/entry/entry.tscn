@@ -5,6 +5,7 @@
 [node name="Entry" type="GraphNode"]
 offset_right = 333.0
 offset_bottom = 161.0
+resizable = true
 title = "Dialog Entry"
 slot/0/left_enabled = false
 slot/0/left_type = 0

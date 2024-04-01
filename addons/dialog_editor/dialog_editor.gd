@@ -1,5 +1,6 @@
 @tool
 extends Panel
+class_name DialogEditor
 
 @onready var graph: GraphEdit = $Graph
 @onready var menu_box: HBoxContainer = graph.get_menu_hbox()
@@ -39,7 +40,7 @@ func add_entry() -> void:
 		return
 
 	var entry: Entry = node.instantiate()
-	entry.setup(DialogManager.create_new_cue(current_conversation))
+	entry.setup(DialogManager.create_new_cue(current_conversation), self)
 	
 	graph.add_child(entry)
 
@@ -55,3 +56,13 @@ func clear_graph() -> void:
 	for child: Node in graph.get_children():
 		graph.remove_child(child)
 		child.queue_free()
+
+
+func show_details_for(cue: ICue) -> void:
+	print("Show details for cue: ", cue.id)
+	pass
+
+
+func hide_details_for(cue: ICue) -> void:
+	print("Hide details for cue: ", cue.id)
+	pass

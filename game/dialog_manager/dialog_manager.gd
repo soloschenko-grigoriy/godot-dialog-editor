@@ -52,3 +52,8 @@ func create_new_cue(convo: IConversation) -> ICue:
     
     cues.append(newCue)
     return newCue
+
+
+func delete_cue(cue: ICue) -> void:
+    cues.remove_at(cues.find(cue))
+
