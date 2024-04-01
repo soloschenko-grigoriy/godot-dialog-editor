@@ -62,3 +62,7 @@ func create_new_cue(convo: IConversation) -> ICue:
 func delete_cue(cue: ICue) -> void:
     cues.remove_at(cues.find(cue))
 
+
+func attach_cue(parent: ICue, child: ICue) -> void:
+    child.parentCueId = parent.id
+    parent.childCueIds.append(child.id)

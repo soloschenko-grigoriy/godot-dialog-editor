@@ -15,6 +15,7 @@ func _ready() -> void:
 
 	label.text = cue.text
 
+	add_next_btn()
 	add_close_btn()
 	set_slot(0, true, 0, Color(1, 1, 1, 1), true, 0, Color(1, 1, 1, 1))
 
@@ -24,24 +25,39 @@ func _ready() -> void:
 	node_deselected.connect(hide_details)
 
 
-func setup(data: ICue, editor: DialogEditor) -> void:
+func setup(data: ICue, editor: DialogEditor, last_cue: Cue = null) -> void:
 	self.cue = data
 	self.dialogEditor = editor
 	
-	add_offset()
+	add_offset(last_cue)
 	
 
 func add_close_btn() -> void:
-	var close_button: Button = Button.new()
-	close_button.text = "X"
-	close_button.pressed.connect(delete)
-	get_titlebar_hbox().add_child(close_button)
+	var btn: Button = Button.new()
+	btn.text = "X"
+	btn.pressed.connect(delete)
+	get_titlebar_hbox().add_child(btn)
 
 
-func add_offset() -> void:
-	var count: int = DialogManager.get_cues_by_conversation_id(cue.convoId).size()
-	var offsetX: int = 50 + count * 50
-	var offsetY: int = 50 + count * 50
+func add_next_btn() -> void:
+	var btn: Button = Button.new()
+	btn.text = "Add"
+	btn.pressed.connect(add_next)
+	get_titlebar_hbox().add_child(btn)
+
+
+func add_offset(last_cue: Cue = null) -> void:
+	# var count: int = DialogManager.get_cues_by_conversation_id(cue.convoId).size()
+	var last_pos: Vector2 = Vector2(0, 150)
+	var last_size: Vector2 = Vector2(0, 0)
+
+	if last_cue != null:
+		last_pos = last_cue.position_offset
+		last_size = last_cue.size
+
+	var offsetX: float = last_pos.x + last_size.x + 50
+	var offsetY: float = last_pos.y
+
 	position_offset = Vector2(offsetX, offsetY)
 
 
@@ -50,7 +66,6 @@ func resize(new_min_size: Vector2) -> void:
 
 
 func delete() -> void:
-	print("Delete cue")
 	DialogManager.delete_cue(cue)
 	queue_free()
 
@@ -61,3 +76,8 @@ func show_details() -> void:
 
 func hide_details() -> void:
 	dialogEditor.hide_details_for(cue)
+	
+
+func add_next() -> void:
+	var child: Cue = dialogEditor.add_cue()
+	dialogEditor.connect_cues(get_name(), 0, child.get_name(), 0)

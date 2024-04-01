@@ -8,6 +8,7 @@ class_name DialogEditor
 var add_btn: AddButton
 var choose_convo_btn: ChooseConversationButton
 var current_conversation: IConversation = null
+var last_added: Cue = null
 
 var node: PackedScene = load("res://addons/dialog_editor/cue/cue.tscn")
 
@@ -36,15 +37,20 @@ func create_choose_cono_btn() -> void:
 	choose_convo_btn.item_selected.connect(select_convo)
 
 
-func add_cue() -> void:
+func add_cue() -> Cue:
 	if current_conversation == null:
 		print("No conversation selected")
 		return
 
 	var cue: Cue = node.instantiate()
-	cue.setup(DialogManager.create_new_cue(current_conversation), self)
+	var data: ICue = DialogManager.create_new_cue(current_conversation)
 
+	cue.setup(data, self, last_added)
 	graph.add_child(cue)
+
+	last_added = cue
+
+	return cue
 
 
 func select_convo(index: int) -> void:
@@ -72,3 +78,7 @@ func hide_details_for(cue: ICue) -> void:
 
 func connect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	graph.connect_node(from_node, from_port, to_node, to_port);
+
+
+func disconnect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
+	graph.disconnect_node(from_node, from_port, to_node, to_port);
