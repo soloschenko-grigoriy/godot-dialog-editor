@@ -9,7 +9,7 @@ var add_btn: AddButton
 var choose_convo_btn: ChooseConversationButton
 var current_conversation: IConversation = null
 
-var node: PackedScene = load("res://addons/dialog_editor/entry/entry.tscn")
+var node: PackedScene = load("res://addons/dialog_editor/cue/cue.tscn")
 
 
 func _ready() -> void:
@@ -23,7 +23,7 @@ func create_add_btn() -> void:
 	graph.get_menu_hbox().add_child(add_btn)
 	graph.get_menu_hbox().move_child(add_btn, 0)
 
-	add_btn.pressed.connect(add_entry)
+	add_btn.pressed.connect(add_cue)
 
 
 func create_choose_cono_btn() -> void:
@@ -34,15 +34,15 @@ func create_choose_cono_btn() -> void:
 	choose_convo_btn.item_selected.connect(select_convo)
 
 
-func add_entry() -> void:
+func add_cue() -> void:
 	if current_conversation == null:
 		print("No conversation selected")
 		return
 
-	var entry: Entry = node.instantiate()
-	entry.setup(DialogManager.create_new_cue(current_conversation), self)
+	var cue: Cue = node.instantiate()
+	cue.setup(DialogManager.create_new_cue(current_conversation), self)
 	
-	graph.add_child(entry)
+	graph.add_child(cue)
 
 
 func select_convo(index: int) -> void:

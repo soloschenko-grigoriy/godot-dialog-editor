@@ -1,6 +1,6 @@
 @tool
 extends GraphNode
-class_name Entry
+class_name Cue
 
 @onready var label: Label = $Label
 
@@ -10,7 +10,7 @@ var dialogEditor: DialogEditor
 
 func _ready() -> void:
 	if cue == null:
-		print("Entry cue not set")
+		print("Cue not set")
 		return
 
 	label.text = cue.text
