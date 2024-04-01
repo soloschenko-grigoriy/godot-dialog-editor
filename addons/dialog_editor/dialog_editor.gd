@@ -17,6 +17,8 @@ func _ready() -> void:
 	create_choose_cono_btn()
 	select_convo(0)
 
+	graph.connection_request.connect(connect_cues)
+
 
 func create_add_btn() -> void:
 	add_btn = AddButton.new()
@@ -41,7 +43,7 @@ func add_cue() -> void:
 
 	var cue: Cue = node.instantiate()
 	cue.setup(DialogManager.create_new_cue(current_conversation), self)
-	
+
 	graph.add_child(cue)
 
 
@@ -66,3 +68,7 @@ func show_details_for(cue: ICue) -> void:
 func hide_details_for(cue: ICue) -> void:
 	print("Hide details for cue: ", cue.id)
 	pass
+
+
+func connect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
+	graph.connect_node(from_node, from_port, to_node, to_port);

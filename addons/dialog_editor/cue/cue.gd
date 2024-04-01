@@ -16,6 +16,7 @@ func _ready() -> void:
 	label.text = cue.text
 
 	add_close_btn()
+	set_slot(0, true, 0, Color(1, 1, 1, 1), true, 0, Color(1, 1, 1, 1))
 
 	# Connect signals
 	resize_request.connect(resize)
