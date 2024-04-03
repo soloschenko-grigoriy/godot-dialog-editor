@@ -49,6 +49,7 @@ func _ready() -> void:
 	add_action_btn.pressed.connect(add_action)
 	add_conditon_btn.pressed.connect(add_condition)
 	textEdit.text_changed.connect(update_text)
+	position_offset_changed.connect(update_position)
 
 
 func setup(cue: ICue, editor: DialogEditor, last_cue: Cue = null) -> void:
@@ -155,3 +156,8 @@ func init_selector(id: int = -1, value: bool = false) -> Selector:
 	selector.setup(id, value)
 
 	return selector
+
+
+func update_position() -> void:
+	data.position_x = position_offset.x
+	data.position_y = position_offset.y
