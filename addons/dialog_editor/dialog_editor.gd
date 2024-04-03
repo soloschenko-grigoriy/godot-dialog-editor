@@ -26,7 +26,7 @@ func create_add_btn() -> void:
 	graph.get_menu_hbox().add_child(add_btn)
 	graph.get_menu_hbox().move_child(add_btn, 0)
 
-	add_btn.pressed.connect(add_cue)
+	add_btn.pressed.connect(func () -> void: add_cue())
 
 
 func create_choose_cono_btn() -> void:
@@ -37,18 +37,21 @@ func create_choose_cono_btn() -> void:
 	choose_convo_btn.item_selected.connect(select_convo)
 
 
-func add_cue() -> Cue:
+func add_cue(parent: Cue = null) -> Cue:
 	if current_conversation == null:
 		print("No conversation selected")
 		return
 
+	var parent_id: int = parent.data.id if parent else 0
 	var cue: Cue = node.instantiate()
-	var data: ICue = DialogManager.create_new_cue(current_conversation)
+	var data: ICue = DialogManager.create_new_cue(current_conversation, parent_id)
 
-	cue.setup(data, self, last_added)
+	cue.setup(data, self, parent)
 	graph.add_child(cue)
 
-	last_added = cue
+	if parent:
+		connect_cues(parent.get_name(), 0, cue.get_name(), 0)
+		#rearrange(parent, cue)
 
 	return cue
 
@@ -67,16 +70,6 @@ func clear_graph() -> void:
 		else:
 			graph.remove_child(child)
 			child.queue_free()
-
-
-func show_details_for(cue: ICue) -> void:
-	print("Show details for cue: ", cue.id)
-	pass
-
-
-func hide_details_for(cue: ICue) -> void:
-	print("Hide details for cue: ", cue.id)
-	pass
 
 
 func connect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
@@ -103,3 +96,25 @@ func delete_cue(cue: Cue) -> void:
 	DialogManager.delete_cue(cue.data)
 	graph.remove_child(cue)
 	cue.queue_free()
+
+
+func rearrange(parent: Cue, child:Cue) -> void:
+	var selected_nodes: Array[Cue] = []
+	selected_nodes.append(parent)
+	selected_nodes.append(child)
+
+	for connection in graph.get_connection_list():
+		if connection["from_node"] == parent.get_name():
+			var n0: StringName = connection["to_node"]
+			var n: NodePath = NodePath(n0)
+			selected_nodes.append(graph.get_node(n))
+
+	for cue: Cue in selected_nodes:
+		cue.selected = true
+
+	print(selected_nodes.size())
+	graph.arrange_nodes()
+
+	for cue: Cue in selected_nodes:
+		cue.selected = false
+

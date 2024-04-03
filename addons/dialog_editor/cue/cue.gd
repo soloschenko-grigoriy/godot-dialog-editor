@@ -95,8 +95,7 @@ func delete() -> void:
 
 	
 func add_next() -> void:
-	var child: Cue = dialogEditor.add_cue()
-	dialogEditor.connect_cues(get_name(), 0, child.get_name(), 0)
+	dialogEditor.add_cue(self)
 
 
 func toggle_collapse() -> void:
