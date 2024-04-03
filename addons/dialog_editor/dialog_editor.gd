@@ -62,8 +62,11 @@ func select_convo(index: int) -> void:
 
 func clear_graph() -> void:
 	for child: Node in graph.get_children():
-		graph.remove_child(child)
-		child.queue_free()
+		if child is Cue:
+			delete_cue(child as Cue)
+		else:
+			graph.remove_child(child)
+			child.queue_free()
 
 
 func show_details_for(cue: ICue) -> void:
