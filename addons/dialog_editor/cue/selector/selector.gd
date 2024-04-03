@@ -1,3 +1,4 @@
+@tool
 extends BoxContainer
 
 class_name Selector
