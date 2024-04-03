@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqijdpf8oqr5e"]
+
+[ext_resource type="Texture2D" uid="uid://dmukguqipja84" path="res://addons/dialog_editor/cue/expand.svg" id="1_vy3oh"]
+[ext_resource type="Script" path="res://addons/dialog_editor/cue/expand_collpase_button/expand_collapse_btn.gd" id="2_bp327"]
+[ext_resource type="Texture2D" uid="uid://c7gdeyyl5ejkl" path="res://addons/dialog_editor/cue/expand_collpase_button/expand.svg" id="3_3nwu6"]
+[ext_resource type="Texture2D" uid="uid://d4gu33810snd2" path="res://addons/dialog_editor/cue/expand_collpase_button/collpase.svg" id="4_n2h4k"]
+
+[node name="ExpandCollapseBtn" type="Button"]
+custom_minimum_size = Vector2(30, 24)
+offset_right = 24.0
+offset_bottom = 24.0
+icon = ExtResource("1_vy3oh")
+icon_alignment = 1
+script = ExtResource("2_bp327")
+icon_expand = ExtResource("3_3nwu6")
+icon_collapse = ExtResource("4_n2h4k")

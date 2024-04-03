@@ -81,7 +81,7 @@ func get_actors_by_conversation(convo: IConversation) -> Array[IActor]:
 func create_new_cue(convo: IConversation, parent_id: int = 0) -> ICue:
     var newCue: ICue = ICue.new(
         get_next_cue_id(), 
-        "...", 
+        "", 
         convo.id,
         parent_id,
         # [],

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn7p7ddl746xb"]
+[gd_scene load_steps=5 format=3 uid="uid://bn7p7ddl746xb"]
 
 [ext_resource type="Script" path="res://addons/dialog_editor/cue/cue.gd" id="1_5pp3s"]
 [ext_resource type="Texture2D" uid="uid://ew5sdslw16yo" path="res://addons/dialog_editor/cue/add.svg" id="2_5vark"]
+[ext_resource type="PackedScene" uid="uid://bqijdpf8oqr5e" path="res://addons/dialog_editor/cue/expand_collpase_button/expand_collapse_btn.tscn" id="2_hx782"]
+[ext_resource type="PackedScene" uid="uid://dt38ga46vtx8u" path="res://addons/dialog_editor/cue/selector/selector.tscn" id="3_uqw4r"]
 
 [node name="Entry" type="GraphNode"]
 offset_left = -1.0
@@ -21,6 +23,8 @@ slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
 script = ExtResource("1_5pp3s")
+expand_collpase_btn = ExtResource("2_hx782")
+selector_tscn = ExtResource("3_uqw4r")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
