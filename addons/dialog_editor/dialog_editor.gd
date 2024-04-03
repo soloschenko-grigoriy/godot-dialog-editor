@@ -43,9 +43,15 @@ func add_cue(parent: Cue = null) -> Cue:
 		return
 
 	var parent_id: int = parent.data.id if parent else 0
-	var cue: Cue = node.instantiate()
 	var data: ICue = DialogManager.create_new_cue(current_conversation, parent_id)
 
+	return render_cue(data)
+
+
+func render_cue(data: ICue) -> Cue:
+	var parent: Cue = get_parent_cue(data)
+	var cue: Cue = node.instantiate()
+	
 	cue.setup(data, self, parent)
 	graph.add_child(cue)
 
@@ -61,12 +67,13 @@ func select_convo(index: int) -> void:
 	current_conversation = DialogManager.get_conversation_by_id(convo_id)
 
 	clear_graph()
+	load_cues()
 
 
 func clear_graph() -> void:
 	for child: Node in graph.get_children():
 		if child is Cue:
-			delete_cue(child as Cue)
+			clear_cue_from_view(child as Cue)
 		else:
 			graph.remove_child(child)
 			child.queue_free()
@@ -81,6 +88,11 @@ func disconnect_cues(from_node: StringName, from_port: int, to_node: StringName,
 
 
 func delete_cue(cue: Cue) -> void:
+	DialogManager.delete_cue(cue.data)
+	clear_cue_from_view(cue)
+
+
+func clear_cue_from_view(cue: Cue) -> void:
 	if cue == last_added:
 		last_added = null
 		
@@ -93,7 +105,6 @@ func delete_cue(cue: Cue) -> void:
 
 			disconnect_cues(from_node, from_port, to_node, to_port)
 	
-	DialogManager.delete_cue(cue.data)
 	graph.remove_child(cue)
 	cue.queue_free()
 
@@ -118,3 +129,24 @@ func rearrange(parent: Cue, child:Cue) -> void:
 	for cue: Cue in selected_nodes:
 		cue.selected = false
 
+
+func load_cues() -> void:
+	var cues: Array[ICue] = DialogManager.get_cues_by_conversation(current_conversation)
+
+	for data: ICue in cues:
+		render_cue(data)
+
+
+func get_parent_cue(cue: ICue) -> Cue:
+	var parent_id: int = cue.parentCueId
+
+	if parent_id == 0:
+		return null
+
+	for child in graph.get_children():
+		if child is Cue:
+			var c: Cue = child as Cue
+			if c.data.id == parent_id:
+				return c
+
+	return null

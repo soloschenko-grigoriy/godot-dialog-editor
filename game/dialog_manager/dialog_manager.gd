@@ -15,8 +15,9 @@ var convos: Array[IConversation] = [
 ]
 
 var cues: Array[ICue] = [
-	ICue.new(1, "Hello", convos[0].id), 
-	ICue.new(2, "Hi", convos[0].id),
+	ICue.new(1, "Parent", convos[0].id, 0, [], [], [], 40, 160), 
+	ICue.new(2, "Child 1", convos[0].id, 1, [], [], [], 440, 60),
+	ICue.new(5, "Child 2", convos[0].id, 1, [], [], [], 460, 320),
     ICue.new(3, "Oh no!", convos[1].id),
     ICue.new(4, "Oh yes!", convos[1].id),
 ]

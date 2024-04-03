@@ -55,7 +55,10 @@ func setup(cue: ICue, editor: DialogEditor, last_cue: Cue = null) -> void:
 	self.data = cue
 	self.dialogEditor = editor
 	
-	add_offset(last_cue)
+	if data.position_x != 0 and data.position_y != 0:
+		position_offset = Vector2(data.position_x, data.position_y)
+	else:
+		add_offset(last_cue)
 	
 
 func add_collapse_btn() -> void:
