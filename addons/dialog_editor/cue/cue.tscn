@@ -149,3 +149,10 @@ size_flags_vertical = 3
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a ex consectetur, vehicula orci eget, lobortis diam. Ut sodales enim eget ligula convallis "
 autowrap_mode = 1
 clip_text = true
+
+[node name="ConfirmDelete" type="ConfirmationDialog" parent="MarginContainer"]
+unique_name_in_owner = true
+title = "Delete this cue?"
+size = Vector2i(253, 100)
+ok_button_text = "Delete"
+dialog_text = "This action cannot be reversed"

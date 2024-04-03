@@ -17,6 +17,7 @@ class_name Cue
 @onready var actions_container: VBoxContainer = %ActionsContainer
 
 @onready var delete_btn: Button = %DeleteBtn
+@onready var confirm_popup: ConfirmationDialog = %ConfirmDelete
 
 @export var expand_collpase_btn: PackedScene 
 @export var selector_tscn: PackedScene
@@ -45,11 +46,13 @@ func _ready() -> void:
 	set_slot(0, true, 0, Color(1, 1, 1, 1), true, 0, Color(1, 1, 1, 1))
 
 	# Connect signals
-	delete_btn.pressed.connect(delete)
+	delete_btn.pressed.connect(show_confirm_delete)
 	add_action_btn.pressed.connect(add_action)
 	add_conditon_btn.pressed.connect(add_condition)
 	textEdit.text_changed.connect(update_text)
 	position_offset_changed.connect(update_position)
+	confirm_popup.get_ok_button().pressed.connect(delete)
+	confirm_popup.get_cancel_button().pressed.connect(hide_confirm_delete)
 
 
 func setup(cue: ICue, editor: DialogEditor, last_cue: Cue = null) -> void:
@@ -93,6 +96,11 @@ func add_offset(last_cue: Cue = null) -> void:
 
 	position_offset = Vector2(offsetX, offsetY)
 
+func hide_confirm_delete() -> void:
+	confirm_popup.hide()
+
+func show_confirm_delete() -> void:
+	confirm_popup.popup_centered()
 
 func delete() -> void:
 	dialogEditor.delete_cue(self)
