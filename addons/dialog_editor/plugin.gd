@@ -6,12 +6,14 @@ const PLUGIN_PATH = "res://addons/dialog_editor/"
 const MAIN_PANEL =  preload(PLUGIN_PATH + "dialog_editor.tscn")
 const MAIN_PANEL_ICON = preload(PLUGIN_PATH + "chat.svg")
 const DIALOG_MANAGER_AUTOLOAD_NAME = "DialogManager"
+const GAME_MANAGER_AUTOLOAD_NAME = "GamegManager"
 
 ## Variables
 var main_panel_instance: Control = null
 
 ## Lifecycle events
 func _enter_tree() -> void:
+	add_autoload_singleton(GAME_MANAGER_AUTOLOAD_NAME, "res://game/game_manager/game_manager.gd")
 	add_autoload_singleton(DIALOG_MANAGER_AUTOLOAD_NAME, "res://game/dialog_manager/dialog_manager.gd")
 
 	main_panel_instance = MAIN_PANEL.instantiate()
@@ -38,3 +40,4 @@ func _exit_tree() -> void:
 		main_panel_instance.queue_free()
 
 	remove_autoload_singleton(DIALOG_MANAGER_AUTOLOAD_NAME)
+	remove_autoload_singleton(GAME_MANAGER_AUTOLOAD_NAME)

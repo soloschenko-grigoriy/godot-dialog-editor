@@ -79,10 +79,6 @@ func get_cues_by_conversation_id(convoId: int) -> Array[ICue]:
         func (cue: ICue) -> bool: return cue.convo_id == convoId)
 
 
-func get_next_cue_id() -> int:
-    return cues.reduce(func (accum: int, cue: ICue) -> int: return cue.id if cue.id > accum else accum, 0) + 1
-
-
 func get_actors() -> Array[IActor]:
     return actors
 
@@ -116,7 +112,7 @@ func get_actors_by_conversation(convo: IConversation) -> Array[IActor]:
 
 func create_new_cue(convo: IConversation, actor: IActor, parent_id: int = 0) -> ICue:
     var newCue: ICue = ICue.new(
-        get_next_cue_id(), 
+        GameManager.generate_next_id(cues), 
         "", 
         convo.id,
         actor,

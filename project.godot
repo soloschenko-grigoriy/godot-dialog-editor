@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GameManager="*res://game/game_manager/game_manager.gd"
 DialogManager="*res://game/dialog_manager/dialog_manager.gd"
 
 [debug]
