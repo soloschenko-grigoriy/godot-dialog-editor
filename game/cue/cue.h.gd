@@ -3,9 +3,9 @@ class_name ICue
 
 @export var id: int
 @export var text: String
-@export var convoId: int
-@export var parentCueId: int
-@export var childCueIds: Array[int]
+@export var convo_id: int
+@export var parent_cue_id: int
+@export var child_cue_ids: Array[int]
 @export var actions: Array[IAction] = []
 @export var conditions: Array[ICondition] = []
 @export var position_x: float = 0
@@ -25,9 +25,9 @@ func _init(
     ) -> void:
     self.id = _id
     self.text = _text
-    self.convoId = _convoId
-    self.parentCueId = _parent_cue_id
-    self.childCueIds = _child_cue_ids
+    self.convo_id = _convoId
+    self.parent_cue_id = _parent_cue_id
+    self.child_cue_ids = _child_cue_ids
     self.actions = _actions
     self.conditions = _conditions
     self.position_x = _position_x

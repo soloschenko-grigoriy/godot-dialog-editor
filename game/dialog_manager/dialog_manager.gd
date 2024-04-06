@@ -53,12 +53,12 @@ func get_conversation_by_id(id: int) -> IConversation:
 
 func get_cues_by_conversation(convo: IConversation) -> Array[ICue]:
     return cues.filter(
-        func (cue: ICue) -> bool: return cue.convoId == convo.id)
+        func (cue: ICue) -> bool: return cue.convo_id == convo.id)
 
 
 func get_cues_by_conversation_id(convoId: int) -> Array[ICue]:
     return cues.filter(
-        func (cue: ICue) -> bool: return cue.convoId == convoId)
+        func (cue: ICue) -> bool: return cue.convo_id == convoId)
 
 
 func get_next_cue_id() -> int:
@@ -99,5 +99,5 @@ func delete_cue(cue: ICue) -> void:
 
 
 func attach_cue(parent: ICue, child: ICue) -> void:
-    child.parentCueId = parent.id
-    parent.childCueIds.append(child.id)
+    child.parent_cue_id = parent.id
+    parent.child_cue_ids.append(child.id)

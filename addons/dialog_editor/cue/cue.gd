@@ -135,7 +135,7 @@ func expand() -> void:
 	
 func render_actors() -> void:
 	actors_btn.clear()
-	for actor in DialogManager.get_actors_by_conversation_id(data.convoId):
+	for actor in DialogManager.get_actors_by_conversation_id(data.convo_id):
 		actors_btn.add_item(actor.name, actor.id)
 
 	actors_btn.select(0)

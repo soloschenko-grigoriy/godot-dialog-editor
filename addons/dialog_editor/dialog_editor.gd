@@ -138,7 +138,7 @@ func load_cues() -> void:
 
 
 func get_parent_cue(cue: ICue) -> Cue:
-	var parent_id: int = cue.parentCueId
+	var parent_id: int = cue.parent_cue_id
 
 	if parent_id == 0:
 		return null
