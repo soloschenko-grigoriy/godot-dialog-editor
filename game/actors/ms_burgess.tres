@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="IActor" load_steps=2 format=3 uid="uid://c6bmjfod42blq"]
+
+[ext_resource type="Script" path="res://game/actors/actor.h.gd" id="1_jmswo"]
+
+[resource]
+script = ExtResource("1_jmswo")
+id = 3
+name = "Ms. Burgess"

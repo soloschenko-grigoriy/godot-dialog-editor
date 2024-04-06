@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="IVariable" load_steps=2 format=3 uid="uid://7ahmdfannslc"]
+
+[ext_resource type="Script" path="res://game/variables/variable.h.gd" id="1_8chpq"]
+
+[resource]
+script = ExtResource("1_8chpq")
+id = 1
+key = "intro_complete"
+value = false

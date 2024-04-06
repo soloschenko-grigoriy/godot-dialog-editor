@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="IActor" load_steps=2 format=3 uid="uid://bfbmi45u6kum6"]
+
+[ext_resource type="Script" path="res://game/actors/actor.h.gd" id="1_6lerr"]
+
+[resource]
+script = ExtResource("1_6lerr")
+id = 2
+name = "John Smith"
