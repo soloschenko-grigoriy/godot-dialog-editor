@@ -6,6 +6,9 @@ class_name DialogEditor
 @onready var menu_box: HBoxContainer = graph.get_menu_hbox()
 
 var add_btn: AddButton
+var convo_name_line_edit: LineEdit
+var convo_actor_1: OptionButton
+var convo_actor_2: OptionButton
 var choose_convo_btn: ChooseConversationButton
 var current_conversation: IConversation = null
 var last_added: Cue = null
@@ -16,9 +19,14 @@ var node: PackedScene = load("res://addons/dialog_editor/cue/cue.tscn")
 func _ready() -> void:
 	create_add_btn()
 	create_choose_cono_btn()
+	render_convo_name()
+	render_convo_actors()
 	select_convo(0)
 
 	graph.connection_request.connect(connect_cues)
+	convo_name_line_edit.text_changed.connect(update_convo_name)
+	convo_actor_1.item_selected.connect(update_actor_1)
+	convo_actor_2.item_selected.connect(update_actor_2)
 
 
 func create_add_btn() -> void:
@@ -67,8 +75,42 @@ func select_convo(index: int) -> void:
 	var convo_id: int = choose_convo_btn.get_item_id(index)
 	current_conversation = DialogManager.get_conversation_by_id(convo_id)
 
+	convo_name_line_edit.text = current_conversation.title if current_conversation else ""
+
+	var to_select_1: int = convo_actor_1.get_item_index(current_conversation.actors[0].id) if current_conversation.actors else 0
+	convo_actor_1.select(to_select_1)
+
+	var to_select_2: int = convo_actor_2.get_item_index(current_conversation.actors[1].id) if current_conversation.actors else 0
+	convo_actor_2.select(to_select_2)
+
 	clear_graph()
 	load_cues()
+
+
+func render_convo_name() -> void:
+	convo_name_line_edit = LineEdit.new()
+	convo_name_line_edit.placeholder_text = "Conversation name"
+	convo_name_line_edit.custom_minimum_size.x = 200
+	convo_name_line_edit.size.x = 200
+	convo_name_line_edit.size.y = 10
+
+	graph.get_menu_hbox().add_child(convo_name_line_edit)
+	graph.get_menu_hbox().move_child(convo_name_line_edit, 2)
+
+
+func render_convo_actors() -> void:
+	convo_actor_1 = OptionButton.new()
+	convo_actor_2 = OptionButton.new()
+
+	for actor in DialogManager.get_actors():
+		convo_actor_1.add_item(actor.name, actor.id)
+		convo_actor_2.add_item(actor.name, actor.id)
+
+	graph.get_menu_hbox().add_child(convo_actor_1)
+	graph.get_menu_hbox().add_child(convo_actor_2)
+
+	graph.get_menu_hbox().move_child(convo_actor_1, 3)
+	graph.get_menu_hbox().move_child(convo_actor_2, 4)
 
 
 func clear_graph() -> void:
@@ -151,3 +193,27 @@ func get_parent_cue(cue: ICue) -> Cue:
 				return c
 
 	return null
+
+
+func update_convo_name(convo_name: String) -> void:
+	if current_conversation == null:
+		return
+
+	current_conversation.title = convo_name
+	choose_convo_btn.set_item_text(choose_convo_btn.selected, convo_name)
+
+
+func update_actor_1(index: int) -> void:
+	if current_conversation == null:
+		return
+
+	var actor_id: int = convo_actor_1.get_item_id(index)
+	current_conversation.actors[0] = DialogManager.get_actor_by_id(actor_id)
+
+
+func update_actor_2(index: int) -> void:
+	if current_conversation == null:
+		return
+
+	var actor_id: int = convo_actor_2.get_item_id(index)
+	current_conversation.actors[1] = DialogManager.get_actor_by_id(actor_id)
