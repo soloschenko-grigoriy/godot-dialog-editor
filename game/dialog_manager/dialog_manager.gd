@@ -15,11 +15,11 @@ var convos: Array[IConversation] = [
 ]
 
 var cues: Array[ICue] = [
-	ICue.new(1, "Parent", convos[0].id, 0, [], [], [], 40, 160), 
-	ICue.new(2, "Child 1", convos[0].id, 1, [], [], [], 440, 60),
-	ICue.new(5, "Child 2", convos[0].id, 1, [], [], [], 460, 320),
-    ICue.new(3, "Oh no!", convos[1].id),
-    ICue.new(4, "Oh yes!", convos[1].id),
+	ICue.new(1, "Parent", convos[0].id, actors[0], 0, [], [], [], 40, 160), 
+	ICue.new(2, "Child 1", convos[0].id, actors[1], 1, [], [], [], 440, 60),
+	ICue.new(5, "Child 2", convos[0].id, actors[1], 1, [], [], [], 460, 320),
+    ICue.new(3, "Oh no!", convos[1].id, actors[2]),
+    ICue.new(4, "Oh yes!", convos[1].id, actors[2]),
 ]
 
 var varibales: Array[IVariable] = [
@@ -75,15 +75,33 @@ func get_actors_by_conversation_id(convoId: int) -> Array[IActor]:
     return convo.actors
 
 
+func get_actor_by_id(actor_id: int) -> IActor:
+    for actor: IActor in actors:
+        if(actor.id == actor_id):
+            return actor
+    
+    return null
+
+
+func get_conversant_by_conversation(convo_id: int, other_actor_id: int) -> IActor:
+    var convo: IConversation = get_conversation_by_id(convo_id)
+    for actor: IActor in convo.actors:
+        if(actor.id != other_actor_id):
+            return actor
+
+    return convo.actors[0]
+
+
 func get_actors_by_conversation(convo: IConversation) -> Array[IActor]:
     return convo.actors
 
 
-func create_new_cue(convo: IConversation, parent_id: int = 0) -> ICue:
+func create_new_cue(convo: IConversation, actor: IActor, parent_id: int = 0) -> ICue:
     var newCue: ICue = ICue.new(
         get_next_cue_id(), 
         "", 
         convo.id,
+        actor,
         parent_id,
         # [],
         # [IAction.new(1, varibales[0], true), IAction.new(2, varibales[1], false)],

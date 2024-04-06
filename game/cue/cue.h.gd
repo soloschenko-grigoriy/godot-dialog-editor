@@ -8,6 +8,7 @@ class_name ICue
 @export var child_cue_ids: Array[int]
 @export var actions: Array[IAction] = []
 @export var conditions: Array[ICondition] = []
+@export var actor: IActor
 @export var position_x: float = 0
 @export var position_y: float = 0
 
@@ -16,6 +17,7 @@ func _init(
     _id: int, 
     _text: String, 
     _convoId: int, 
+    _actor: IActor,
     _parent_cue_id: int = 0, 
     _child_cue_ids: Array[int] = [], 
     _actions: Array[IAction] = [], 
@@ -26,6 +28,7 @@ func _init(
     self.id = _id
     self.text = _text
     self.convo_id = _convoId
+    self.actor = _actor
     self.parent_cue_id = _parent_cue_id
     self.child_cue_ids = _child_cue_ids
     self.actions = _actions

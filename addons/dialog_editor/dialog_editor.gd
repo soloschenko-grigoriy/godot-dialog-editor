@@ -43,7 +43,8 @@ func add_cue(parent: Cue = null) -> Cue:
 		return
 
 	var parent_id: int = parent.data.id if parent else 0
-	var data: ICue = DialogManager.create_new_cue(current_conversation, parent_id)
+	var actor: IActor = DialogManager.get_conversant_by_conversation(current_conversation.id, parent.data.actor.id) if parent else null
+	var data: ICue = DialogManager.create_new_cue(current_conversation, actor, parent_id)
 
 	return render_cue(data)
 

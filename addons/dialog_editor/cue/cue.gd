@@ -46,6 +46,7 @@ func _ready() -> void:
 	set_slot(0, true, 0, Color(1, 1, 1, 1), true, 0, Color(1, 1, 1, 1))
 
 	# Connect signals
+	actors_btn.item_selected.connect(update_actor)
 	delete_btn.pressed.connect(show_confirm_delete)
 	add_action_btn.pressed.connect(add_action)
 	add_conditon_btn.pressed.connect(add_condition)
@@ -135,10 +136,12 @@ func expand() -> void:
 	
 func render_actors() -> void:
 	actors_btn.clear()
+
 	for actor in DialogManager.get_actors_by_conversation_id(data.convo_id):
 		actors_btn.add_item(actor.name, actor.id)
 
-	actors_btn.select(0)
+	var to_select: int = actors_btn.get_item_index(data.actor.id) if data.actor else 0
+	actors_btn.select(to_select)
 
 
 func render_conditions() -> void:
@@ -169,3 +172,8 @@ func init_selector(id: int = -1, value: bool = false) -> Selector:
 func update_position() -> void:
 	data.position_x = position_offset.x
 	data.position_y = position_offset.y
+
+
+func update_actor(index: int) -> void:
+	var id: int = actors_btn.get_item_id(index)
+	data.actor = DialogManager.get_actor_by_id(id)
