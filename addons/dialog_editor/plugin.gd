@@ -6,7 +6,7 @@ const PLUGIN_PATH = "res://addons/dialog_editor/"
 const MAIN_PANEL =  preload(PLUGIN_PATH + "dialog_editor.tscn")
 const MAIN_PANEL_ICON = preload(PLUGIN_PATH + "chat.svg")
 const DIALOG_MANAGER_AUTOLOAD_NAME = "DialogManager"
-const GAME_MANAGER_AUTOLOAD_NAME = "GamegManager"
+const GAME_MANAGER_AUTOLOAD_NAME = "GameManager"
 
 ## Variables
 var main_panel_instance: Control = null

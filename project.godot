@@ -28,7 +28,3 @@ gdscript/warnings/unsafe_property_access=2
 gdscript/warnings/unsafe_method_access=2
 gdscript/warnings/unsafe_cast=1
 gdscript/warnings/unsafe_call_argument=1
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/dialog_editor/plugin.cfg")

@@ -1,15 +1,101 @@
-[gd_resource type="Resource" script_class="DialogDatabase" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="DialogDatabase" load_steps=16 format=3 uid="uid://ymyam0g7cyl7"]
 
-[ext_resource type="Resource" path="res://game/actors/ashley.tres" id="1_4hpmc"]
+[ext_resource type="Resource" uid="uid://doh72gxhj84vh" path="res://game/actors/ashley.tres" id="1_4hpmc"]
 [ext_resource type="Script" path="res://game/dialog_manager/dialog_database.gd" id="1_nvkq3"]
-[ext_resource type="Resource" path="res://game/actors/john_smith.tres" id="2_d1hlx"]
-[ext_resource type="Resource" path="res://game/actors/ms_burgess.tres" id="3_p0y1d"]
-[ext_resource type="Resource" path="res://game/conversations/ashley_innkeeper.tres" id="4_xjadj"]
-[ext_resource type="Resource" path="res://game/conversations/ashley_ms_burgess.tres" id="5_ui2kx"]
-[ext_resource type="Resource" path="res://game/variables/intro_complete.tres" id="7_nagdu"]
+[ext_resource type="Resource" uid="uid://bfbmi45u6kum6" path="res://game/actors/john_smith.tres" id="2_d1hlx"]
+[ext_resource type="Resource" uid="uid://c6bmjfod42blq" path="res://game/actors/ms_burgess.tres" id="3_p0y1d"]
+[ext_resource type="Resource" uid="uid://shhoer6rmklo" path="res://game/conversations/ashley_innkeeper.tres" id="4_xjadj"]
+[ext_resource type="Resource" uid="uid://cjyhudgq10i68" path="res://game/conversations/ashley_ms_burgess.tres" id="5_ui2kx"]
+[ext_resource type="Script" path="res://game/cue/cue.h.gd" id="6_chf6f"]
+[ext_resource type="Resource" uid="uid://7ahmdfannslc" path="res://game/variables/intro_complete.tres" id="7_nagdu"]
+
+[sub_resource type="Resource" id="Resource_k2eh2"]
+script = ExtResource("6_chf6f")
+id = 1
+text = "first dialogue"
+convo_id = 1
+parent_cue_id = 0
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = -20.0
+position_y = 180.0
+
+[sub_resource type="Resource" id="Resource_x1ldw"]
+script = ExtResource("6_chf6f")
+id = 3
+text = "me gusta!"
+convo_id = 2
+parent_cue_id = 0
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = 40.0
+position_y = 140.0
+
+[sub_resource type="Resource" id="Resource_ecvii"]
+script = ExtResource("6_chf6f")
+id = 4
+text = "espasito"
+convo_id = 2
+parent_cue_id = 3
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = 660.0
+position_y = 140.0
+
+[sub_resource type="Resource" id="Resource_4eitn"]
+script = ExtResource("6_chf6f")
+id = 5
+text = ""
+convo_id = 1
+parent_cue_id = 1
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = 520.0
+position_y = 280.0
+
+[sub_resource type="Resource" id="Resource_suniv"]
+script = ExtResource("6_chf6f")
+id = 6
+text = "me texto"
+convo_id = 1
+parent_cue_id = 0
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = 560.0
+position_y = 80.0
+
+[sub_resource type="Resource" id="Resource_wqhmr"]
+script = ExtResource("6_chf6f")
+id = 7
+text = ""
+convo_id = 1
+parent_cue_id = 5
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = 940.0
+position_y = 280.0
+
+[sub_resource type="Resource" id="Resource_s4q7c"]
+script = ExtResource("6_chf6f")
+id = 8
+text = ""
+convo_id = 1
+parent_cue_id = 0
+child_cue_ids = Array[int]([])
+actions = Array[Resource("res://game/actions/action.h.gd")]([])
+conditions = Array[Resource("res://game/conditions/condition.h.gd")]([])
+position_x = 80.0
+position_y = 480.0
 
 [resource]
 script = ExtResource("1_nvkq3")
 conversations = Array[Resource("res://game/conversations/convsersation.h.gd")]([ExtResource("4_xjadj"), ExtResource("5_ui2kx")])
 actors = Array[Resource("res://game/actors/actor.h.gd")]([ExtResource("1_4hpmc"), ExtResource("2_d1hlx"), ExtResource("3_p0y1d")])
 variables = Array[Resource("res://game/variables/variable.h.gd")]([ExtResource("7_nagdu")])
+cues = Array[ExtResource("6_chf6f")]([SubResource("Resource_k2eh2"), SubResource("Resource_x1ldw"), SubResource("Resource_ecvii"), SubResource("Resource_4eitn"), SubResource("Resource_suniv"), SubResource("Resource_wqhmr"), SubResource("Resource_s4q7c")])

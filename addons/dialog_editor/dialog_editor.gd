@@ -19,14 +19,15 @@ var node: PackedScene = load("res://addons/dialog_editor/cue/cue.tscn")
 func _ready() -> void:
 	create_add_btn()
 	create_choose_cono_btn()
-	render_convo_name()
-	render_convo_actors()
+	# render_convo_name()
+	# render_convo_actors()
 	select_convo(0)
 
 	graph.connection_request.connect(connect_cues)
-	convo_name_line_edit.text_changed.connect(update_convo_name)
-	convo_actor_1.item_selected.connect(update_actor_1)
-	convo_actor_2.item_selected.connect(update_actor_2)
+	graph.disconnection_request.connect(disconnect_cues)
+	# convo_name_line_edit.text_changed.connect(update_convo_name)
+	# convo_actor_1.item_selected.connect(update_actor_1)
+	# convo_actor_2.item_selected.connect(update_actor_2)
 
 
 func create_add_btn() -> void:
@@ -65,7 +66,7 @@ func render_cue(data: ICue) -> Cue:
 	graph.add_child(cue)
 
 	if parent:
-		connect_cues(parent.get_name(), 0, cue.get_name(), 0)
+		render_connection(parent.get_name(), 0, cue.get_name(), 0)
 		#rearrange(parent, cue)
 
 	return cue
@@ -78,13 +79,13 @@ func select_convo(index: int) -> void:
 	if(current_conversation == null):
 		return
 
-	convo_name_line_edit.text = current_conversation.title if current_conversation else ""
+	# convo_name_line_edit.text = current_conversation.title if current_conversation else ""
 
-	var to_select_1: int = convo_actor_1.get_item_index(current_conversation.actors[0].id) if current_conversation.actors else 0
-	convo_actor_1.select(to_select_1)
+	# var to_select_1: int = convo_actor_1.get_item_index(current_conversation.actors[0].id) if current_conversation.actors else 0
+	# convo_actor_1.select(to_select_1)
 
-	var to_select_2: int = convo_actor_2.get_item_index(current_conversation.actors[1].id) if current_conversation.actors else 0
-	convo_actor_2.select(to_select_2)
+	# var to_select_2: int = convo_actor_2.get_item_index(current_conversation.actors[1].id) if current_conversation.actors else 0
+	# convo_actor_2.select(to_select_2)
 
 	clear_graph()
 	load_cues()
@@ -126,11 +127,18 @@ func clear_graph() -> void:
 
 
 func connect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
-	graph.connect_node(from_node, from_port, to_node, to_port);
+	var parent: ICue = get_cue_by_string_name(from_node).data
+	var cue: ICue = get_cue_by_string_name(to_node).data
+
+	DialogManager.connect_cues(cue, parent)
+	render_connection(from_node, from_port, to_node, to_port)
 
 
 func disconnect_cues(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
-	graph.disconnect_node(from_node, from_port, to_node, to_port);
+	var cue: ICue = get_cue_by_string_name(to_node).data
+
+	DialogManager.diconnect_cues(cue)
+	render_disconnection(from_node, from_port, to_node, to_port)
 
 
 func delete_cue(cue: Cue) -> void:
@@ -154,6 +162,13 @@ func clear_cue_from_view(cue: Cue) -> void:
 	graph.remove_child(cue)
 	cue.queue_free()
 
+
+func render_connection(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
+	graph.connect_node(from_node, from_port, to_node, to_port)
+
+
+func render_disconnection(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
+	graph.disconnect_node(from_node, from_port, to_node, to_port);
 
 func rearrange(parent: Cue, child:Cue) -> void:
 	var selected_nodes: Array[Cue] = []
@@ -192,6 +207,16 @@ func get_parent_cue(cue: ICue) -> Cue:
 		if child is Cue:
 			var c: Cue = child as Cue
 			if c.data.id == parent_id:
+				return c
+
+	return null
+
+
+func get_cue_by_string_name(cue_name: StringName) -> Cue:
+	for child in graph.get_children():
+		if child is Cue:
+			var c: Cue = child as Cue
+			if c.get_name() == cue_name:
 				return c
 
 	return null
