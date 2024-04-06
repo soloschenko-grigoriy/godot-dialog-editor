@@ -14,10 +14,10 @@ class_name ICue
 
 
 func _init(
-    _id: int, 
-    _text: String, 
-    _convoId: int, 
-    _actor: IActor,
+    _id: int = 0, 
+    _text: String = "", 
+    _convoId: int = 0, 
+    _actor: IActor = null,
     _parent_cue_id: int = 0, 
     _child_cue_ids: Array[int] = [], 
     _actions: Array[IAction] = [], 

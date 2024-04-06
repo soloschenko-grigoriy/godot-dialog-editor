@@ -1,9 +1,10 @@
+@tool
 extends Resource
 class_name IActor
 
-var id: int
-var name: String
+@export var id: int
+@export var name: String
 
-func _init(id: int, name: String):
-    self.id = id
-    self.name = name
+func _init(_id: int = 0, _name: String = "") -> void:
+    self.id = _id
+    self.name = _name

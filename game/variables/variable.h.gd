@@ -5,7 +5,7 @@ class_name IVariable
 @export var key: String
 @export var value: bool
 
-func _init(_id: int, _key: String, _value: bool) -> void:
+func _init(_id: int = 0, _key: String = "", _value: bool = false) -> void:
     self.id = _id
     self.key = _key
     self.value = _value

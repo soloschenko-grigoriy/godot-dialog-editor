@@ -75,6 +75,9 @@ func select_convo(index: int) -> void:
 	var convo_id: int = choose_convo_btn.get_item_id(index)
 	current_conversation = DialogManager.get_conversation_by_id(convo_id)
 
+	if(current_conversation == null):
+		return
+
 	convo_name_line_edit.text = current_conversation.title if current_conversation else ""
 
 	var to_select_1: int = convo_actor_1.get_item_index(current_conversation.actors[0].id) if current_conversation.actors else 0
