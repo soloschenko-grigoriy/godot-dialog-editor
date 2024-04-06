@@ -48,8 +48,8 @@ func _ready() -> void:
 	# Connect signals
 	actors_btn.item_selected.connect(update_actor)
 	delete_btn.pressed.connect(show_confirm_delete)
-	add_action_btn.pressed.connect(add_action)
-	add_conditon_btn.pressed.connect(add_condition)
+	add_action_btn.pressed.connect(create_action)
+	add_conditon_btn.pressed.connect(create_condition)
 	textEdit.text_changed.connect(update_text)
 	position_offset_changed.connect(update_position)
 	confirm_popup.get_ok_button().pressed.connect(delete)
@@ -97,11 +97,14 @@ func add_offset(last_cue: Cue = null) -> void:
 
 	position_offset = Vector2(offsetX, offsetY)
 
+
 func hide_confirm_delete() -> void:
 	confirm_popup.hide()
 
+
 func show_confirm_delete() -> void:
 	confirm_popup.popup_centered()
+
 
 func delete() -> void:
 	dialogEditor.delete_cue(self)
@@ -146,25 +149,45 @@ func render_actors() -> void:
 
 func render_conditions() -> void:
 	for condition: ICondition in data.conditions:
-		add_condition(condition.variable.id, condition.value)
+		add_condition(condition.id, condition.variable.id, condition.value)
 
 
 func render_actions() -> void:
 	for action: IAction in data.actions:
-		add_action(action.variable.id, action.value)
+		add_action(action.id, action.variable.id, action.value)
 
 
-func add_condition(id: int = -1, value: bool = false) -> void:
-	conditions_container.add_child(init_selector(id, value))
+func create_condition() -> void:
+	var condition: ICondition = DialogManager.create_new_condition()
+	data.conditions.append(condition)
+	add_condition(condition.id, -1, condition.value)
 
 
-func add_action(id: int = -1, value: bool = false) -> void:
-	actions_container.add_child(init_selector(id, value))
+func create_action() -> void:
+	var action: IAction = DialogManager.create_new_action()
+	data.actions.append(action)
+	add_action(action.id, -1, action.value)
 
 
-func init_selector(id: int = -1, value: bool = false) -> Selector:
+func add_condition(condition_id: String, variable_id: int = -1, value: bool = false) -> void:
+	var item: Selector = init_selector(condition_id, variable_id, value)
+	conditions_container.add_child(item)
+
+	item.id_selected.connect(update_condition)
+	item.value_selected.connect(update_condition_value)
+
+
+func add_action(action_id: String, id: int = -1, value: bool = false) -> void:
+	var item: Selector = init_selector(action_id, id, value)
+	actions_container.add_child(item)
+
+	item.id_selected.connect(update_action)
+	item.value_selected.connect(update_condition_value)
+
+
+func init_selector(item_id: String, variable_id: int = -1, value: bool = false) -> Selector:
 	var selector: Selector = selector_tscn.instantiate()
-	selector.setup(id, value)
+	selector.setup(item_id, variable_id, value)
 
 	return selector
 
@@ -177,3 +200,35 @@ func update_position() -> void:
 func update_actor(index: int) -> void:
 	var id: int = actors_btn.get_item_id(index)
 	data.actor = DialogManager.get_actor_by_id(id)
+
+
+func update_condition(id: String, selected_variable_id: int) -> void:
+	print("cond", id, " ", selected_variable_id)
+	for condition:ICondition in data.conditions:
+		if condition.id == id:
+			condition.variable = DialogManager.get_variable_by_id(selected_variable_id)
+			return
+
+
+func update_action(id: String, selected_variable_id: int) -> void:
+	print("action", id, " ", selected_variable_id)
+	for action:IAction in data.actions:
+		if action.id == id:
+			action.variable = DialogManager.get_variable_by_id(selected_variable_id)
+			return
+
+
+func update_condition_value(id: String, selected_variable_value: bool) -> void:
+	print("cond", id, " ", selected_variable_value)
+	for condition:ICondition in data.conditions:
+		if condition.id == id and condition.variable != null:
+			condition.variable.value = selected_variable_value
+			return
+
+
+func update_action_value(id: String, selected_variable_value: bool) -> void:
+	print("action", id, " ", selected_variable_value)
+	for action:IAction in data.actions:
+		if action.id == id and action.variable != null:
+			action.variable.value = selected_variable_value
+			return

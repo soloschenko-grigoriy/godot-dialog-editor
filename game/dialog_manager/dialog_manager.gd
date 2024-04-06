@@ -1,6 +1,8 @@
 @tool
 extends Node
 
+const uuid_util = preload('res://addons/uuid/uuid.gd')
+
 ## TEMP
 var actors: Array[IActor] = [
     IActor.new(1, "Ashley"),
@@ -41,6 +43,22 @@ func get_conversations() -> Array[IConversation]:
 
 func get_variables() -> Array[IVariable]:
     return varibales
+
+
+func get_variable_by_id(id: int) -> IVariable:
+    for variable: IVariable in varibales:
+        if(variable.id == id):
+            return variable
+    
+    return null
+
+
+func create_new_condition() -> ICondition:
+    return ICondition.new(uuid_util.v4(), null, false)
+    
+
+func create_new_action() -> IAction:
+    return IAction.new(uuid_util.v4(), null, false)
 
 
 func get_conversation_by_id(id: int) -> IConversation:
@@ -104,8 +122,8 @@ func create_new_cue(convo: IConversation, actor: IActor, parent_id: int = 0) -> 
         actor,
         parent_id,
         # [],
-        # [IAction.new(1, varibales[0], true), IAction.new(2, varibales[1], false)],
-        # [ICondition.new(1, varibales[2], false), ICondition.new(2, varibales[3], true)],
+        # [IAction.new("900ffaad-2beb-4b7f-a5ad-70130fa10752", varibales[0], true), IAction.new("900ffaad-2beb-4b7f-a5ad-70130fa10753", varibales[1], false)],
+        # [ICondition.new("f3112eb1-a2b1-471b-b69d-fcc74368d395", varibales[2], false), ICondition.new("f3112eb1-a2b1-471b-b69d-fcc74368d396", varibales[3], true)],
         )
     
     cues.append(newCue)
