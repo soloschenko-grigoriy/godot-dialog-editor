@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogDatabase" load_steps=26 format=3 uid="uid://b4xh4i7rkm6dm"]
+[gd_resource type="Resource" script_class="DialogDatabase" load_steps=27 format=3 uid="uid://b4xh4i7rkm6dm"]
 
 [ext_resource type="Resource" uid="uid://doh72gxhj84vh" path="res://game/actors/ashley.tres" id="1_4hpmc"]
 [ext_resource type="Script" path="res://game/dialog_manager/dialog_database.gd" id="1_nvkq3"]
@@ -12,6 +12,12 @@
 [ext_resource type="Script" path="res://game/actions/action.h.gd" id="7_qwdsr"]
 [ext_resource type="Resource" uid="uid://dtgwiuo7qla6i" path="res://game/variables/crime_found.tres" id="9_en01r"]
 
+[sub_resource type="Resource" id="Resource_mj7xw"]
+script = ExtResource("7_of0gb")
+id = "ddaf2a40-678f-4f6e-8486-aff5a8a216da"
+variable_id = 2
+value = false
+
 [sub_resource type="Resource" id="Resource_k2eh2"]
 script = ExtResource("6_chf6f")
 id = 1
@@ -19,7 +25,7 @@ text = "This is first clue"
 convo_id = 1
 parent_cue_id = 0
 actions = Array[ExtResource("7_qwdsr")]([])
-conditions = Array[ExtResource("7_of0gb")]([])
+conditions = Array[ExtResource("7_of0gb")]([SubResource("Resource_mj7xw")])
 position_x = -80.0
 position_y = 200.0
 
@@ -109,7 +115,7 @@ position_y = 0.0
 script = ExtResource("7_qwdsr")
 id = "96f20f83-5758-43e5-8162-c7a670d09cca"
 variable_id = 2
-value = false
+value = true
 
 [sub_resource type="Resource" id="Resource_kwgi3"]
 script = ExtResource("7_of0gb")
