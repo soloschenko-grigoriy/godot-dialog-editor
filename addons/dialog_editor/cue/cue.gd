@@ -76,6 +76,8 @@ func update_text() -> void:
 	data.text = textEdit.text
 	collapsed_text.text = data.text if data.text else "..."
 
+	DialogManager.save()
+
 
 func add_next_btn() -> void:
 	var btn: Button = Button.new()
@@ -149,12 +151,12 @@ func render_actors() -> void:
 
 func render_conditions() -> void:
 	for condition: ICondition in data.conditions:
-		add_condition(condition.id, condition.variable.id, condition.value)
+		add_condition(condition.id, condition.variable_id, condition.value)
 
 
 func render_actions() -> void:
 	for action: IAction in data.actions:
-		add_action(action.id, action.variable.id, action.value)
+		add_action(action.id, action.variable_id, action.value)
 
 
 func create_condition() -> void:
@@ -182,7 +184,7 @@ func add_action(action_id: String, id: int = -1, value: bool = false) -> void:
 	actions_container.add_child(item)
 
 	item.id_selected.connect(update_action)
-	item.value_selected.connect(update_condition_value)
+	item.value_selected.connect(update_action_value)
 
 
 func init_selector(item_id: String, variable_id: int = -1, value: bool = false) -> Selector:
@@ -196,39 +198,48 @@ func update_position() -> void:
 	data.position_x = position_offset.x
 	data.position_y = position_offset.y
 
+	DialogManager.save()
+
 
 func update_actor(index: int) -> void:
 	var id: int = actors_btn.get_item_id(index)
 	data.actor = DialogManager.get_actor_by_id(id)
 
+	DialogManager.save()
+
 
 func update_condition(id: String, selected_variable_id: int) -> void:
-	print("cond", id, " ", selected_variable_id)
 	for condition:ICondition in data.conditions:
 		if condition.id == id:
-			condition.variable = DialogManager.get_variable_by_id(selected_variable_id)
+			condition.variable_id = DialogManager.get_variable_by_id(selected_variable_id).id
+			DialogManager.save()
 			return
 
 
 func update_action(id: String, selected_variable_id: int) -> void:
-	print("action", id, " ", selected_variable_id)
 	for action:IAction in data.actions:
 		if action.id == id:
-			action.variable = DialogManager.get_variable_by_id(selected_variable_id)
+			action.variable_id = DialogManager.get_variable_by_id(selected_variable_id).id
+			DialogManager.save()
 			return
 
-
+	
 func update_condition_value(id: String, selected_variable_value: bool) -> void:
-	print("cond", id, " ", selected_variable_value)
 	for condition:ICondition in data.conditions:
-		if condition.id == id and condition.variable != null:
-			condition.variable.value = selected_variable_value
+		if condition.id == id and condition.variable_id > 0:
+			condition.value = selected_variable_value
+			DialogManager.save()
 			return
+
+	
 
 
 func update_action_value(id: String, selected_variable_value: bool) -> void:
 	print("action", id, " ", selected_variable_value)
 	for action:IAction in data.actions:
-		if action.id == id and action.variable != null:
-			action.variable.value = selected_variable_value
+		if action.id == id and action.variable_id  > 0:
+			action.value = selected_variable_value
+			DialogManager.save()
 			return
+
+	

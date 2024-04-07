@@ -44,6 +44,7 @@ func get_key_index() -> int:
 
 
 func get_value_index() -> int:
+    print(selected_value)
     return 0 if selected_value == true else 1
 
 

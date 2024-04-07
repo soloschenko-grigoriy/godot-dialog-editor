@@ -127,7 +127,7 @@ func delete_cue(cue: ICue) -> void:
 
 func attach_cue(parent: ICue, child: ICue) -> void:
     child.parent_cue_id = parent.id
-    parent.child_cue_ids.append(child.id)
+    #parent.child_cue_ids.append(child.id)
     save()
 
 

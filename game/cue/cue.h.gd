@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name ICue
 
@@ -5,7 +6,6 @@ class_name ICue
 @export var text: String
 @export var convo_id: int
 @export var parent_cue_id: int
-@export var child_cue_ids: Array[int]
 @export var actions: Array[IAction] = []
 @export var conditions: Array[ICondition] = []
 @export var actor: IActor
@@ -19,7 +19,6 @@ func _init(
     _convoId: int = 0, 
     _actor: IActor = null,
     _parent_cue_id: int = 0, 
-    _child_cue_ids: Array[int] = [], 
     _actions: Array[IAction] = [], 
     _conditions: Array[ICondition] = [],
     _position_x: float = 0,
@@ -30,7 +29,6 @@ func _init(
     self.convo_id = _convoId
     self.actor = _actor
     self.parent_cue_id = _parent_cue_id
-    self.child_cue_ids = _child_cue_ids
     self.actions = _actions
     self.conditions = _conditions
     self.position_x = _position_x

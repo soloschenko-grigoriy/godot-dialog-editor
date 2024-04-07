@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogDatabase" load_steps=17 format=3 uid="uid://b4xh4i7rkm6dm"]
+[gd_resource type="Resource" script_class="DialogDatabase" load_steps=23 format=3 uid="uid://b4xh4i7rkm6dm"]
 
 [ext_resource type="Resource" uid="uid://doh72gxhj84vh" path="res://game/actors/ashley.tres" id="1_4hpmc"]
 [ext_resource type="Script" path="res://game/dialog_manager/dialog_database.gd" id="1_nvkq3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://game/cue/cue.h.gd" id="6_chf6f"]
 [ext_resource type="Resource" uid="uid://7ahmdfannslc" path="res://game/variables/intro_complete.tres" id="7_nagdu"]
 [ext_resource type="Script" path="res://game/conditions/condition.h.gd" id="7_of0gb"]
+[ext_resource type="Script" path="res://game/actions/action.h.gd" id="7_qwdsr"]
 [ext_resource type="Resource" uid="uid://dtgwiuo7qla6i" path="res://game/variables/crime_found.tres" id="9_en01r"]
 
 [sub_resource type="Resource" id="Resource_k2eh2"]
@@ -17,22 +18,33 @@ id = 1
 text = "This is first clue"
 convo_id = 1
 parent_cue_id = 0
-child_cue_ids = Array[int]([])
-actions = Array[Resource("res://game/actions/action.h.gd")]([])
+actions = Array[ExtResource("7_qwdsr")]([])
 conditions = Array[ExtResource("7_of0gb")]([])
-position_x = -20.0
-position_y = 260.0
+position_x = -80.0
+position_y = 200.0
 
-[sub_resource type="Resource" id="Resource_lub7c"]
-script = ExtResource("7_of0gb")
-id = "c02c4ec9-7346-463c-9c50-9d64c2d84891"
+[sub_resource type="Resource" id="Resource_d1nqm"]
+script = ExtResource("7_qwdsr")
+id = "140a3ab0-deb2-4088-9d93-4a48fb154c92"
 variable_id = 1
+value = true
+
+[sub_resource type="Resource" id="Resource_a7flw"]
+script = ExtResource("7_qwdsr")
+id = "a64bfed7-c918-4ac9-aa0c-8bff16fc21de"
+variable_id = 2
 value = false
 
-[sub_resource type="Resource" id="Resource_pp6ps"]
+[sub_resource type="Resource" id="Resource_v3ed3"]
 script = ExtResource("7_of0gb")
-id = "130c6e5f-a692-4a6c-8c75-9c23c4114288"
+id = "46340573-7c94-4454-ad69-6ea8ed7af49f"
 variable_id = 2
+value = true
+
+[sub_resource type="Resource" id="Resource_r8feg"]
+script = ExtResource("7_of0gb")
+id = "b86d2262-8df4-4e48-8118-26cf61abe61e"
+variable_id = 1
 value = false
 
 [sub_resource type="Resource" id="Resource_8rjqb"]
@@ -41,12 +53,11 @@ id = 5
 text = "This is second"
 convo_id = 1
 parent_cue_id = 1
-child_cue_ids = Array[int]([])
-actions = Array[Resource("res://game/actions/action.h.gd")]([])
-conditions = Array[ExtResource("7_of0gb")]([SubResource("Resource_lub7c"), SubResource("Resource_pp6ps")])
+actions = Array[ExtResource("7_qwdsr")]([SubResource("Resource_d1nqm"), SubResource("Resource_a7flw")])
+conditions = Array[ExtResource("7_of0gb")]([SubResource("Resource_v3ed3"), SubResource("Resource_r8feg")])
 actor = ExtResource("2_d1hlx")
-position_x = 440.0
-position_y = 80.0
+position_x = 380.0
+position_y = 200.0
 
 [sub_resource type="Resource" id="Resource_x1ldw"]
 script = ExtResource("6_chf6f")
@@ -54,8 +65,7 @@ id = 3
 text = "me gusta!"
 convo_id = 2
 parent_cue_id = 0
-child_cue_ids = Array[int]([])
-actions = Array[Resource("res://game/actions/action.h.gd")]([])
+actions = Array[ExtResource("7_qwdsr")]([])
 conditions = Array[ExtResource("7_of0gb")]([])
 position_x = 40.0
 position_y = 140.0
@@ -66,15 +76,38 @@ id = 4
 text = "espasito"
 convo_id = 2
 parent_cue_id = 3
-child_cue_ids = Array[int]([])
-actions = Array[Resource("res://game/actions/action.h.gd")]([])
+actions = Array[ExtResource("7_qwdsr")]([])
 conditions = Array[ExtResource("7_of0gb")]([])
 position_x = 580.0
 position_y = 140.0
+
+[sub_resource type="Resource" id="Resource_qr3rm"]
+script = ExtResource("7_qwdsr")
+id = "f810542e-4713-4aea-be15-48553a2b823b"
+variable_id = 2
+value = true
+
+[sub_resource type="Resource" id="Resource_yb0ep"]
+script = ExtResource("7_of0gb")
+id = "95ab5cf3-eca3-4345-8c01-5e3d6ece58a8"
+variable_id = 1
+value = false
+
+[sub_resource type="Resource" id="Resource_goocm"]
+script = ExtResource("6_chf6f")
+id = 6
+text = "This is thiurd!!!!"
+convo_id = 1
+parent_cue_id = 5
+actions = Array[ExtResource("7_qwdsr")]([SubResource("Resource_qr3rm")])
+conditions = Array[ExtResource("7_of0gb")]([SubResource("Resource_yb0ep")])
+actor = ExtResource("1_4hpmc")
+position_x = 0.0
+position_y = 0.0
 
 [resource]
 script = ExtResource("1_nvkq3")
 conversations = Array[Resource("res://game/conversations/convsersation.h.gd")]([ExtResource("4_xjadj"), ExtResource("5_ui2kx")])
 actors = Array[Resource("res://game/actors/actor.h.gd")]([ExtResource("1_4hpmc"), ExtResource("2_d1hlx"), ExtResource("3_p0y1d")])
 variables = Array[Resource("res://game/variables/variable.h.gd")]([ExtResource("7_nagdu"), ExtResource("9_en01r")])
-cues = Array[ExtResource("6_chf6f")]([SubResource("Resource_k2eh2"), SubResource("Resource_8rjqb"), SubResource("Resource_x1ldw"), SubResource("Resource_ecvii")])
+cues = Array[ExtResource("6_chf6f")]([SubResource("Resource_k2eh2"), SubResource("Resource_8rjqb"), SubResource("Resource_x1ldw"), SubResource("Resource_ecvii"), SubResource("Resource_goocm")])
