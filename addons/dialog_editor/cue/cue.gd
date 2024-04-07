@@ -235,7 +235,6 @@ func update_condition_value(id: String, selected_variable_value: bool) -> void:
 
 
 func update_action_value(id: String, selected_variable_value: bool) -> void:
-	print("action", id, " ", selected_variable_value)
 	for action:IAction in data.actions:
 		if action.id == id and action.variable_id  > 0:
 			action.value = selected_variable_value
