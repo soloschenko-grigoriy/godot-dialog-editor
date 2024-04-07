@@ -157,7 +157,7 @@ func clear_cue_from_view(cue: Cue) -> void:
 			var to_node: StringName = connection["to_node"];
 			var to_port:int = connection["to_port"];
 
-			disconnect_cues(from_node, from_port, to_node, to_port)
+			render_disconnection(from_node, from_port, to_node, to_port)
 	
 	graph.remove_child(cue)
 	cue.queue_free()
@@ -169,6 +169,7 @@ func render_connection(from_node: StringName, from_port: int, to_node: StringNam
 
 func render_disconnection(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	graph.disconnect_node(from_node, from_port, to_node, to_port);
+
 
 func rearrange(parent: Cue, child:Cue) -> void:
 	var selected_nodes: Array[Cue] = []
@@ -222,25 +223,25 @@ func get_cue_by_string_name(cue_name: StringName) -> Cue:
 	return null
 
 
-func update_convo_name(convo_name: String) -> void:
-	if current_conversation == null:
-		return
+# func update_convo_name(convo_name: String) -> void:
+# 	if current_conversation == null:
+# 		return
 
-	current_conversation.title = convo_name
-	choose_convo_btn.set_item_text(choose_convo_btn.selected, convo_name)
-
-
-func update_actor_1(index: int) -> void:
-	if current_conversation == null:
-		return
-
-	var actor_id: int = convo_actor_1.get_item_id(index)
-	current_conversation.actors[0] = DialogManager.get_actor_by_id(actor_id)
+# 	current_conversation.title = convo_name
+# 	choose_convo_btn.set_item_text(choose_convo_btn.selected, convo_name)
 
 
-func update_actor_2(index: int) -> void:
-	if current_conversation == null:
-		return
+# func update_actor_1(index: int) -> void:
+# 	if current_conversation == null:
+# 		return
 
-	var actor_id: int = convo_actor_2.get_item_id(index)
-	current_conversation.actors[1] = DialogManager.get_actor_by_id(actor_id)
+# 	var actor_id: int = convo_actor_1.get_item_id(index)
+# 	current_conversation.actors[0] = DialogManager.get_actor_by_id(actor_id)
+
+
+# func update_actor_2(index: int) -> void:
+# 	if current_conversation == null:
+# 		return
+
+# 	var actor_id: int = convo_actor_2.get_item_id(index)
+# 	current_conversation.actors[1] = DialogManager.get_actor_by_id(actor_id)

@@ -2,44 +2,14 @@
 extends Node
 
 const DATABASE_PATH: String = "res://game/dialog_manager/dialog_database.tres"
-const uuid_util = preload('res://addons/uuid/uuid.gd')
-
-const auto_save_interval: float = 5.0
-
-## TEMP
-# var actors: Array[IActor] = [
-#     IActor.new(1, "Ashley"),
-#     IActor.new(2, "John Smith"),
-#     IActor.new(23, "Ms. Burgess")
-# ]
-
-# var convos: Array[IConversation] = [
-# 	IConversation.new(1, "Convo 1", [actors[0], actors[1]]), 
-# 	IConversation.new(2, "Convo 2", [actors[0], actors[2]]),
-# 	IConversation.new(3, "Convo 3", [actors[1], actors[2]]),
-# ]
-
-# var cues: Array[ICue] = [
-# 	ICue.new(1, "Parent", convos[0].id, actors[0], 0, [], [], [], 40, 160), 
-# 	ICue.new(2, "Child 1", convos[0].id, actors[1], 1, [], [], [], 440, 60),
-# 	ICue.new(5, "Child 2", convos[0].id, actors[1], 1, [], [], [], 460, 320),
-#     ICue.new(3, "Oh no!", convos[1].id, actors[2]),
-#     ICue.new(4, "Oh yes!", convos[1].id, actors[2]),
-# ]
-
-# var varibales: Array[IVariable] = [
-#     IVariable.new(1, "my_var_1", false),
-#     IVariable.new(2, "my_var_2", false),
-#     IVariable.new(3, "my_var_3", false),
-#     IVariable.new(4, "my_var_4", false),
-# ]
-
-## TEMP
-
 const database: DialogDatabase = preload(DATABASE_PATH)
 
+const uuid_util = preload('res://addons/uuid/uuid.gd')
+const auto_save_interval: float = 5.0
+
 func _ready() -> void:
-    auto_save()
+    # auto_save()
+    pass
 
 
 func get_conversations() -> Array[IConversation]:
@@ -59,19 +29,28 @@ func get_variable_by_id(id: int) -> IVariable:
 
 
 func create_new_condition() -> ICondition:
-    return ICondition.new(uuid_util.v4(), null, false)
+    var condition: ICondition = ICondition.new(uuid_util.v4(), -1, false)
+
+    save()
+    return condition
     
 
 func create_new_action() -> IAction:
-    return IAction.new(uuid_util.v4(), null, false)
+    var action: IAction = IAction.new(uuid_util.v4(), -1, false)
+     
+    save()
+
+    return action
 
 
 func connect_cues(cue: ICue, parent: ICue) -> void:
     cue.parent_cue_id = parent.id
+    save()
 
 
 func diconnect_cues(cue: ICue) -> void:
     cue.parent_cue_id = 0
+    save()
 
 
 func get_conversation_by_id(id: int) -> IConversation:
@@ -136,28 +115,37 @@ func create_new_cue(convo: IConversation, actor: IActor, parent_id: int = 0) -> 
         )
     
     database.cues.append(newCue)
+    save()
 
     return newCue
 
 
 func delete_cue(cue: ICue) -> void:
     database.cues.remove_at(database.cues.find(cue))
+    save()
 
 
 func attach_cue(parent: ICue, child: ICue) -> void:
     child.parent_cue_id = parent.id
     parent.child_cue_ids.append(child.id)
+    save()
 
 
 func auto_save() -> void:
     await get_tree().create_timer(auto_save_interval).timeout
+
+    save()
+
+    auto_save()
+        
+
+func save() ->void:
     print("Saving database...")
 
     var result: Error = ResourceSaver.save(database)
     if(result == OK):
         print("Database saved successfully!")
-        auto_save()
+        pass
     else:
         print("Error saving database!")
         printerr(result)
-        
