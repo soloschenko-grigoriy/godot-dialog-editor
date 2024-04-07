@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogDatabase" load_steps=23 format=3 uid="uid://b4xh4i7rkm6dm"]
+[gd_resource type="Resource" script_class="DialogDatabase" load_steps=26 format=3 uid="uid://b4xh4i7rkm6dm"]
 
 [ext_resource type="Resource" uid="uid://doh72gxhj84vh" path="res://game/actors/ashley.tres" id="1_4hpmc"]
 [ext_resource type="Script" path="res://game/dialog_manager/dialog_database.gd" id="1_nvkq3"]
@@ -105,9 +105,32 @@ actor = ExtResource("1_4hpmc")
 position_x = 0.0
 position_y = 0.0
 
+[sub_resource type="Resource" id="Resource_331k1"]
+script = ExtResource("7_qwdsr")
+id = "96f20f83-5758-43e5-8162-c7a670d09cca"
+variable_id = 2
+value = false
+
+[sub_resource type="Resource" id="Resource_kwgi3"]
+script = ExtResource("7_of0gb")
+id = "f2fa311f-d0e2-45ae-8b8c-2a2977f40913"
+variable_id = 1
+value = false
+
+[sub_resource type="Resource" id="Resource_n6vy5"]
+script = ExtResource("6_chf6f")
+id = 7
+text = "This is second part 2"
+convo_id = 1
+parent_cue_id = 1
+actions = Array[ExtResource("7_qwdsr")]([SubResource("Resource_331k1")])
+conditions = Array[ExtResource("7_of0gb")]([SubResource("Resource_kwgi3")])
+position_x = 380.0
+position_y = 740.0
+
 [resource]
 script = ExtResource("1_nvkq3")
 conversations = Array[Resource("res://game/conversations/convsersation.h.gd")]([ExtResource("4_xjadj"), ExtResource("5_ui2kx")])
 actors = Array[Resource("res://game/actors/actor.h.gd")]([ExtResource("1_4hpmc"), ExtResource("2_d1hlx"), ExtResource("3_p0y1d")])
 variables = Array[Resource("res://game/variables/variable.h.gd")]([ExtResource("7_nagdu"), ExtResource("9_en01r")])
-cues = Array[ExtResource("6_chf6f")]([SubResource("Resource_k2eh2"), SubResource("Resource_8rjqb"), SubResource("Resource_x1ldw"), SubResource("Resource_ecvii"), SubResource("Resource_goocm")])
+cues = Array[ExtResource("6_chf6f")]([SubResource("Resource_k2eh2"), SubResource("Resource_8rjqb"), SubResource("Resource_x1ldw"), SubResource("Resource_ecvii"), SubResource("Resource_goocm"), SubResource("Resource_n6vy5")])

@@ -30,7 +30,6 @@ var toggle_btn: ExpandCollpaseBtn
 
 func _ready() -> void:
 	if data == null:
-		print("Cue not set")
 		return
 
 	collapsed_text.text = data.text if data.text else "..."
